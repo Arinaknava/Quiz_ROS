@@ -3,6 +3,7 @@ from tkinter import *
 import rospy
 from geometry_msgs.msg import Twist
 from std_msgs.msg import String
+import os
 
 root = Tk()
 root.geometry("300x300")
@@ -10,6 +11,7 @@ root.title(" Show Action ")
 
 def clearToTextInput():
 	ActOut.delete("1.0","end")
+	os.system('rosservice call /reset')
 
 def run(val):
 	ActOut.insert(END, val.data + "\n")
