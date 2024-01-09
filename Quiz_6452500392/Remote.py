@@ -12,8 +12,10 @@ frame = Tk()
 frame.title("REMOTE")
 frame.geometry("200x300")
 
-rospy.init_node("GUI_Remote")
-pub = rospy.Publisher("turtle1/cmd_vel",Twist, queue_size=10)
+Remote = rospy.Publisher("turtle1/cmd_vel",Twist, queue_size=10)
+Motion = rospy.Publisher("chatter",String, queue_size=10)
+rospy.init_node("GUI_remote")
+rate = rospy.Rate(10)
 
 # Initial ROS node and determine Publish or Subscribe action
 #
@@ -24,25 +26,33 @@ def fw():
     cmd = Twist()
     cmd.linear.x = LinearVel.get()
     cmd.angular.z= 0.0
-    pub.publish(cmd)
+    Remote.publish(cmd)
+    text = "forward"
+    Motion.publish(text)
         
 def bw():
     cmd = Twist()
     cmd.linear.x = -LinearVel.get()
     cmd.angular.z= 0.0
-    pub.publish(cmd)
+    Remote.publish(cmd)
+    text = "backward"
+    Motion.publish(text)
        
 def lt():
     cmd = Twist()
     cmd.linear.x = LinearVel.get()
     cmd.angular.z= AngularVel.get()
-    pub.publish(cmd)
+    Remote.publish(cmd)
+    text = "Turn left"
+    Motion.publish(text)
    
 def rt():
     cmd = Twist()
     cmd.linear.x = LinearVel.get()
     cmd.angular.z= -AngularVel.get()
-    pub.publish(cmd)
+    Remote.publish(cmd)
+    text = "Turn Right"
+    Motion.publish(text)
     
 LinearVel = Scale(frame, from_=0, to=2, orient=HORIZONTAL)
 LinearVel.set(1) # 1 is defult value for scale

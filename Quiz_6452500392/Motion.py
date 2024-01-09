@@ -16,9 +16,8 @@ def run(val):
 
 if __name__ == "__main__":
 	#  Initial ROS node and determine Publish or Subscribe action
-	sub = rospy.Subscriber("chatter",String,callback=run)
-	rospy.init_node("Listener")
-	rospy.spin()
+	sub = rospy.Subscriber("chatter",String, callback=run)
+	rospy.init_node("Motion")
 	
 	ActLabel = Label(text = "Motion", font = ("",18))
 	ActLabel.place(x=113, y=10)
